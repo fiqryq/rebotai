@@ -1,6 +1,4 @@
-# .github/workflows/bot.yml
-
-name: GitHub Bot
+name: Code review using OpenAI
 
 on:
   issue_comment:
