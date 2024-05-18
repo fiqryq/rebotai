@@ -3,8 +3,8 @@ const github = require('@actions/github');
 const { Octokit } = require('@octokit/rest');
 const axios = require('axios');
 
-const githubToken = core.getInput('GH_TOKEN');
-const openaiApiKey = core.getInput('OPENAI_API_KEY');
+const githubToken = process.env.GH_TOKEN;
+const openaiApiKey = process.env.OPENAI_API_KEY;
 
 const octokit = new Octokit({ auth: githubToken });
 
@@ -37,7 +37,6 @@ const reviewCodeWithOpenAI = async (code) => {
   );
   return response.data.choices[0].message.content.trim();
 };
-
 const run = async () => {
   try {
     const context = github.context;
