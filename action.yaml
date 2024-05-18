@@ -1,5 +1,5 @@
 name: rebotai
-description: 'A GitHub bot for code review and pull requests, powered by OpenAI'
+description: 'A GitHub bot powered by OpenAI for code review on pull requests.'
 branding:
   icon: 'code'
   color: 'white'
