@@ -8,6 +8,10 @@ jobs:
   run-bot:
     runs-on: ubuntu-latest
 
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -21,7 +25,4 @@ jobs:
         run: npm install
 
       - name: Run code review
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: node index.js
