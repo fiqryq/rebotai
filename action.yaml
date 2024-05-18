@@ -3,6 +3,10 @@ description: 'A GitHub bot powered by OpenAI for code review on pull requests.'
 branding:
   icon: 'code'
   color: 'white'
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ secrets.GH_TOKEN }}
+    - ${{ secrets.OPENAI_API_KEY }}
