@@ -1,0 +1,8 @@
+name: rebotai
+description: 'A GitHub bot for code review and pull requests, powered by OpenAI'
+branding:
+  icon: 'code'
+  color: 'white'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
