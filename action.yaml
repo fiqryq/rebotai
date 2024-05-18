@@ -13,5 +13,5 @@ inputs:
     required: true
 
 runs:
-  using: 'node20'
+  using: 'node12'
   main: 'index.js'
