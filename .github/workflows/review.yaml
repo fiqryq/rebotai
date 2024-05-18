@@ -1,26 +1,15 @@
-name: Code review using OpenAI
+name: Code Review
 
 on:
   issue_comment:
     types: [created]
 
 jobs:
-  run-bot:
+  review:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run bot
+      - uses: actions/checkout@v2
+      - name: Run Code Review with OpenAI
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
