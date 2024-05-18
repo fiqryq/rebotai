@@ -13,8 +13,5 @@ inputs:
     required: true
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.gh-token }}
-    - ${{ inputs.openai-api-key }}
+  using: 'node18'
+  main: 'index.js'
