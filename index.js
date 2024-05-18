@@ -20,7 +20,7 @@ const reviewCodeWithOpenAI = async (code) => {
         },
         {
           role: 'user',
-          content: `Review the following code and provide feedback:\n\n${code}`,
+          content: `Review the following code and provide feedback. Additionally, please offer your best suggestions for improvement:\n\n${code}`,
         },
       ],
       max_tokens: 150,

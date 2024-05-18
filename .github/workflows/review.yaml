@@ -1,4 +1,4 @@
-name: Code review using OpenAI
+name: Rebotai
 
 on:
   issue_comment:
