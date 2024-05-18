@@ -4,9 +4,17 @@ branding:
   icon: 'code'
   color: 'white'
 
+inputs:
+  gh-token:
+    description: 'GitHub token for accessing repository'
+    required: true
+  openai-api-key:
+    description: 'OpenAI API key for accessing OpenAI services'
+    required: true
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ secrets.GH_TOKEN }}
-    - ${{ secrets.OPENAI_API_KEY }}
+    - ${{ inputs.gh-token }}
+    - ${{ inputs.openai-api-key }}
