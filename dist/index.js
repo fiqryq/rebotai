@@ -41597,6 +41597,8 @@ const axios = __nccwpck_require__(8757);
 
 const githubToken = core.getInput('gh-token');
 const openaiApiKey = core.getInput('openai-api-key');
+const model = core.getInput('model');
+const language = core.getInput('language');
 
 const octokit = new Octokit({ auth: githubToken });
 
@@ -41607,7 +41609,7 @@ const prompt = (code) => `
 
     - Author: User
     - Version: 3.0
-    - Language: English
+    - Language: ${language}
     - Description: A code reviewer is an individual who critically evaluates a piece of code and provides constructive feedback. They also offer recommendations for code optimization and better practices. If feasible, they provide sample code to illustrate their suggestions. 
 
     ## Prompt
@@ -41630,7 +41632,7 @@ const reviewCodeWithOpenAI = async (code) => {
   const response = await axios.post(
     'https://api.openai.com/v1/chat/completions',
     {
-      model: 'gpt-3.5-turbo',
+      model: model,
       messages: [
         {
           role: 'system',
@@ -41641,7 +41643,7 @@ const reviewCodeWithOpenAI = async (code) => {
           content: prompt(code),
         },
       ],
-      max_tokens: 150,
+      max_tokens: 1000,
       n: 1,
       stop: null,
       temperature: 0.7,
