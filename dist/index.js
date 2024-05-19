@@ -41600,6 +41600,36 @@ const openaiApiKey = core.getInput('openai-api-key');
 
 const octokit = new Octokit({ auth: githubToken });
 
+const prompt = (code) => `
+# Role: Code Reviewer
+
+## Profile
+
+- Author: User
+- Version: 1.0
+- Language: English
+- Description: A code reviewer is an individual who critically evaluates a piece of code and provides constructive feedback. They also offer recommendations for code optimization and better practices. If feasible, they provide sample code to illustrate their suggestions. 
+
+## Prompt
+
+Please examine the code snippet provided below and share your feedback. Also, suggest enhancements and provide illustrative sample code in the following format:
+
+\`\`\`ts
+// Suggested code goes here...
+\`\`\`
+
+## Instruction
+
+- When providing feedback, please break it down into Feedback and Suggestions for Improvement sections.
+- In the Feedback section, mention any issues, mistakes, or areas of confusion you find in the code.
+- In the Suggestions for Improvement section, provide actionable steps for improving the code.
+- If possible, give sample code to demonstrate your suggestions.
+
+## Code for review:
+
+${code}
+`;
+
 const reviewCodeWithOpenAI = async (code) => {
   const response = await axios.post(
     'https://api.openai.com/v1/chat/completions',
@@ -41612,7 +41642,7 @@ const reviewCodeWithOpenAI = async (code) => {
         },
         {
           role: 'user',
-          content: `Review the following code and provide feedback. Additionally, please offer your best suggestions for improvement:\n\n${code}`,
+          content: prompt,
         },
       ],
       max_tokens: 150,
@@ -41650,10 +41680,6 @@ const run = async () => {
         const pullRequestUrl = payload.issue.pull_request.url;
         const pullRequestNumber = pullRequestUrl.split('/').pop();
 
-        console.log(
-          `Fetching files for PR ${pullRequestNumber} in repo ${owner}/${repo}`
-        );
-
         try {
           const { data: files } = await octokit.pulls.listFiles({
             owner,
@@ -41666,7 +41692,7 @@ const run = async () => {
           for (const file of files) {
             if (file.patch) {
               const review = await reviewCodeWithOpenAI(file.patch);
-              reviewComments += `### Review for ${file.filename}:\n\n${review}\n\n`;
+              reviewComments += `#### Review for ${file.filename}:\n\n${review}\n\n`;
             }
           }
 
