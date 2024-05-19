@@ -50,7 +50,7 @@ const reviewCodeWithOpenAI = async (code) => {
         },
         {
           role: 'user',
-          content: prompt,
+          content: prompt(code),
         },
       ],
       max_tokens: 150,
@@ -67,6 +67,7 @@ const reviewCodeWithOpenAI = async (code) => {
   );
   return response.data.choices[0].message.content.trim();
 };
+
 const run = async () => {
   try {
     const context = github.context;
