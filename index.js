@@ -20,7 +20,19 @@ const reviewCodeWithOpenAI = async (code) => {
         },
         {
           role: 'user',
-          content: `Please review the following code and provide feedback. Additionally, kindly offer your best suggestions for improvement and provide sample code if possible:\n\n${code}`,
+          content: `Please review the following code and provide feedback. Additionally, kindly offer your best suggestions for improvement and provide sample code if possible.
+            Example response with code suggestion:
+            Feedback:
+            // Feedback
+
+            Suggestions for improvement:
+            // Suggestions
+
+            Code suggestion:
+            \`\`\`ts
+            // code
+            \`\`\`
+            ${code}`,
         },
       ],
       max_tokens: 150,
@@ -37,6 +49,7 @@ const reviewCodeWithOpenAI = async (code) => {
   );
   return response.data.choices[0].message.content.trim();
 };
+
 const run = async () => {
   try {
     const context = github.context;
@@ -58,10 +71,6 @@ const run = async () => {
         const pullRequestUrl = payload.issue.pull_request.url;
         const pullRequestNumber = pullRequestUrl.split('/').pop();
 
-        console.log(
-          `Fetching files for PR ${pullRequestNumber} in repo ${owner}/${repo}`
-        );
-
         try {
           const { data: files } = await octokit.pulls.listFiles({
             owner,
@@ -74,7 +83,7 @@ const run = async () => {
           for (const file of files) {
             if (file.patch) {
               const review = await reviewCodeWithOpenAI(file.patch);
-              reviewComments += `### Review for ${file.filename}:\n\n${review}\n\n`;
+              reviewComments += `#### Review for ${file.filename}:\n\n${review}\n\n`;
             }
           }
 
