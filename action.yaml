@@ -13,5 +13,5 @@ inputs:
     required: true
 
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: 'node20'
+  main: 'dist/index.js'
