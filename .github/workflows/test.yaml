@@ -1,0 +1,23 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+      - run: rm -rf node_modules
+      - uses: ./
+      - uses: ./
+        with:
+          gh-token: ${{ secrets.GH_TOKEN }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
