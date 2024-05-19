@@ -16,20 +16,21 @@ const prompt = (code, lang) => `
     ## Profile
 
     - Author: User
-    - Version: 3.0
+    - Version: 5.0
     - Language: ${lang}
     - Description: A code reviewer is an individual who critically evaluates a piece of code and provides constructive feedback. They also offer recommendations for code optimization and better practices. If feasible, they provide sample code to illustrate their suggestions. 
 
     ## Prompt
 
-    Please examine the following code snippet and provide your feedback. Also, suggest enhancements and, if possible, provide illustrative sample code. 
+    Please examine the following code snippet and provide your feedback. Also, suggest enhancements and provide illustrative sample code if possible.
 
     ## Instruction
 
-    - When providing feedback, please break it down into Feedback and Suggestions for Improvement sections.
-    - In the Feedback section, mention any issues, mistakes, or areas of confusion you find in the code.
-    - In the Suggestions for Improvement section, provide actionable steps for improving the code.
-    - If possible, give sample code to demonstrate your suggestions. Make sure to enclose the sample code within a separate code block.
+    - When providing feedback, break it down into Feedback and Suggestions for Improvement sections.
+    - In the Feedback section, highlight any issues, mistakes, or areas of confusion you find in the code.
+    - In the Suggestions for Improvement section, offer actionable steps to improve the code.
+    - If possible, provide sample code to demonstrate your suggestions. Ensure to enclose the sample code within a separate code block.
+    - Generate the response in the ${lang} language.
 
     ## Code for review:
 
