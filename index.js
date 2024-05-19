@@ -20,19 +20,12 @@ const reviewCodeWithOpenAI = async (code) => {
         },
         {
           role: 'user',
-          content: `Please review the following code and provide feedback. Additionally, kindly offer your best suggestions for improvement and provide sample code if possible.
-            Example response with code suggestion:
-            Feedback:
-            // Feedback
-
-            Suggestions for improvement:
-            // Suggestions
-
-            Code suggestion:
-            \`\`\`ts
-            // code
-            \`\`\`
-            ${code}`,
+          content: `
+          Please examine the code snippet provided below and share your feedback. Also, suggest enhancements and provide illustrative sample code in the following format:
+            \```ts
+            Suggested code goes here...
+            \```
+          \n\n${code}`,
         },
       ],
       max_tokens: 150,
@@ -49,7 +42,6 @@ const reviewCodeWithOpenAI = async (code) => {
   );
   return response.data.choices[0].message.content.trim();
 };
-
 const run = async () => {
   try {
     const context = github.context;
