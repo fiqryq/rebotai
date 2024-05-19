@@ -11,6 +11,12 @@ inputs:
   openai-api-key:
     description: 'OpenAI API key for accessing OpenAI services'
     required: true
+  model:
+    description: 'OpenAI Model'
+    required: true
+  language:
+    description: 'Response language for code review.'
+    required: true
 
 runs:
   using: 'node20'
