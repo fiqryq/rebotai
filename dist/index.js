@@ -41602,19 +41602,19 @@ const language = core.getInput('language');
 
 const octokit = new Octokit({ auth: githubToken });
 
-const prompt = (code) => `
+const prompt = (code, lang) => `
     # Role: Code Reviewer
 
     ## Profile
 
     - Author: User
     - Version: 3.0
-    - Language: ${language}
+    - Language: ${lang}
     - Description: A code reviewer is an individual who critically evaluates a piece of code and provides constructive feedback. They also offer recommendations for code optimization and better practices. If feasible, they provide sample code to illustrate their suggestions. 
 
     ## Prompt
 
-    Please examine the code snippet provided below and share your feedback. Also, suggest enhancements and provide illustrative sample code. 
+    Please examine the following code snippet and provide your feedback. Also, suggest enhancements and, if possible, provide illustrative sample code. 
 
     ## Instruction
 
@@ -41640,7 +41640,7 @@ const reviewCodeWithOpenAI = async (code) => {
         },
         {
           role: 'user',
-          content: prompt(code),
+          content: prompt(code, language),
         },
       ],
       max_tokens: 1000,
