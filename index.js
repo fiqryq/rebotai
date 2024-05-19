@@ -3,8 +3,8 @@ const github = require('@actions/github');
 const { Octokit } = require('@octokit/rest');
 const axios = require('axios');
 
-const githubToken = core.getInput('gh-token');
-const openaiApiKey = core.getInput('openai-api-key');
+const githubToken = process.env.GH_TOKEN;
+const openaiApiKey = process.env.OPENAI_API_KEY;
 
 const octokit = new Octokit({ auth: githubToken });
 
